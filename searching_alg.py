@@ -13,6 +13,14 @@ def order(w1, w2):
 
     total = 0
 
+    for i in range(2):
+        try:
+            if w1[i]==w2[i]:
+                total+=i**2
+        except IndexError:
+            pass
+
+
     words = []
     for i in range(len(w1l)):
         words.append(w1l[:i])
@@ -22,7 +30,7 @@ def order(w1, w2):
 
     for i in words:
         if "".join(i) in w2:
-            total+=len(i)
+            total+=len(i)*1.8
 
     return total
 
@@ -49,11 +57,13 @@ def compare_dict(d1:dict, d2:dict):
 
     return total/max(abs(lengthd2-lengthd1),2)
 
-with open('english3.txt', 'r') as f:
-    word_list = f.readlines()
-    word_list = [word.rstrip('\n') for word in word_list]
+
 
 def search_with(word:str):
+    with open('english3.txt', 'r') as f:
+        word_list = f.readlines()
+        word_list = [word.rstrip('\n') for word in word_list]
+
     w = word.lower()
     word = list(word)
     word = condense_list(word)
@@ -82,5 +92,5 @@ def search_with(word:str):
 
     return close
 
-
-print(search_with(input("Enter a word: ")))
+def search(word):
+    return search_with(word)
