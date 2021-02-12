@@ -1,4 +1,4 @@
-
+import time
 letter_list = list("abcdefghijklmnopqrstuvwxyz")
 
 def condense_list(l:list):
@@ -94,3 +94,5 @@ def search_with(word:str):
 
 def search(word):
     return search_with(word)
+
+
