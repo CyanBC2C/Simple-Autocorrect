@@ -11,7 +11,7 @@ for i in l:
     answers = search(incorrect)
     if correct in answers:
         points+=100-(len(answers)*5)
-        print('Correct: '+str(points))
+        print('Correct: '+str(points), incorrect, correct, answers)
     else:
         points-=100
         print('Incorrect: '+str(points), incorrect, correct, answers)

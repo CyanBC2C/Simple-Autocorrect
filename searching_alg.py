@@ -13,12 +13,12 @@ def order(w1, w2):
 
     total = 0
 
-    for i in range(2):
-        try:
-            if w1[i]==w2[i]:
-                total+=i**3
-        except IndexError:
-            pass
+    # for i in range(2):
+    #     try:
+    #         if w1[i]==w2[i]:
+    #             total+=i**3
+    #     except IndexError:
+    #         pass
 
 
     words = []
