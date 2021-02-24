@@ -16,7 +16,7 @@ def order(w1, w2):
     for i in range(2):
         try:
             if w1[i]==w2[i]:
-                total+=i**2
+                total+=i**3
         except IndexError:
             pass
 
@@ -30,7 +30,7 @@ def order(w1, w2):
 
     for i in words:
         if "".join(i) in w2:
-            total+=len(i)*1.8
+            total+=len(i)**2
 
     return total
 
@@ -44,25 +44,32 @@ def compare_dict(d1:dict, d2:dict):
         lengthd1+=d1[i]
         lengthd2+=d2[i]
 
-        if d2[i] ==0 or d1[i]==0:
-            # total-=5
-            continue
+        # if d2[i] ==0 or d1[i]==0:
+        #     # total-=5
+        #     continue
+
         if diff==0:
+            total+=10
+
+        elif diff==1:
             total+=5
-        if diff<=2:
-            total+=3
+        # else:
+        #     total-=5
 
     if abs(lengthd2-lengthd1)>3:
         return 0
 
-    return total/max(abs(lengthd2-lengthd1),2)
+    return total/max(abs(lengthd2-lengthd1),1)
 
 
 
-def search_with(word:str):
-    with open('english3.txt', 'r') as f:
+def search(word:str):
+    with open('final_dict.txt', 'r') as f:
         word_list = f.readlines()
         word_list = [word.rstrip('\n') for word in word_list]
+        word_list = [i.split() for i in word_list]
+        points = [float(i[0]) for i in word_list]
+        word_list = [i[1] for i in word_list]
 
     w = word.lower()
     word = list(word)
@@ -74,25 +81,31 @@ def search_with(word:str):
     word_list_list = [list(i) for i in word_list]
     word_list_dict = [condense_list(i) for i in word_list_list]
 
-    close = ''
+    close = []
     best = 0
     for i in range(len(word_list)):
 
-        d= compare_dict(word, word_list_dict[i])
-        q=order(w, word_list[i])
-        d+=q
 
-        if d>best:
-            close = word_list[i]
+        diff = abs(len(word_list[i])-len(w))
+
+        if diff>3:
+            continue
+
+        d= compare_dict(word, word_list_dict[i])
+        # d=0
+        q=order(w, word_list[i])
+
+        d += q
+        d += points[i] * 50
+
+        if (d>best) and not (abs(best-d)<10):
+            close = []
+            close.append(word_list[i])
             best = d
 
-        # if d==best:
-        #     close+=", "+word_list[i]
-        #     print(close, d,q)
+        if (abs(best-d)<10):
+            close.append(word_list[i])
 
     return close
-
-def search(word):
-    return search_with(word)
 
 
